@@ -1,0 +1,8 @@
+{
+  "name": "Passe",
+  "description": "Password manager written in Django/Python",
+  "image": "heroku/python",
+  "repository": "https://github.com/underlost/passe",
+  "keywords": ["python", "django" ],
+  "addons": [ "heroku-postgresql" ]
+}

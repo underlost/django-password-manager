@@ -1,7 +1,43 @@
-*.sw*
+# Ignore docs files
+.ruby-version
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.zip
+*.vi
+*~
 *.pyc
-*.sqlite
-.ropeproject
-python
-initial_data.json
-*.db
+
+# OS or Editor folders
+.DS_Store
+._*
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+.idea
+.env
+zappa_settings.json
+
+# Komodo
+*.komodoproject
+.komodotools
+
+# Folders to ignore
+node_modules
+dist
+venv
+staticfiles
+__pycache__
+cloudflare.*
