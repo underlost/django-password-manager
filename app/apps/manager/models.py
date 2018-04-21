@@ -1,6 +1,6 @@
 from Crypto.Cipher import AES
 from Crypto.Hash import MD5
-from base64 import encodestring, decodestring
+from base64 import encodestring, decodestring, b64encode, b64decode
 from django.db import models
 from Crypto import Random
 import json
@@ -19,7 +19,7 @@ class Entry(models.Model):
     class Meta:
         ordering = ('title', 'date')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def dict(self):
@@ -41,7 +41,7 @@ class Category(models.Model):
     title = models.CharField(max_length=200, unique=True)
     parent = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -54,7 +54,7 @@ class CryptoEngine:
 
     def __init__(self, master_key):
 
-        self.master_key = master_key
+        self.master_key = master_key.encode('utf-8')
         self.secret = self._get_secret(master_key)
         self.cipher = AES.new(self.secret)
         self.decipher = AES.new(self.secret)
@@ -65,13 +65,13 @@ class CryptoEngine:
         return msg + ((block_size - len(msg) % block_size) * padding)
 
     def _depad(self, msg, padding=PADDING):
-        return msg.rstrip(padding)
+        return msg.rstrip(padding.encode('utf-8'))
 
     def _get_secret(self, key):
-        return MD5.new(key).hexdigest()[:self.BLOCK_SIZE]
+        return MD5.new(key.encode('utf-8')).hexdigest()[:self.BLOCK_SIZE]
 
     def encrypt(self, msg):
-        return encodestring(self.cipher.encrypt(self._pad(msg)))
+        return b64encode(self.cipher.encrypt(self._pad(msg)))
 
     def decrypt(self, msg):
-        return self._depad((self.decipher.decrypt(decodestring(msg))))
+        return self._depad((self.decipher.decrypt(b64decode(msg.encode('utf-8')))))

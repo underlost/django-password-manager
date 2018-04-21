@@ -63,7 +63,7 @@ class EntryCreate(CreateView):
                 entry.password = engine.encrypt(form.cleaned_data['password'])
                 entry.save()
                 messages.add_message(request, messages.INFO, u'New entry added: {}'.format(entry.title))
-                return redirect('home')
+                return redirect('passe.manager:home')
             else:
                 form = EntryForm()
         return render(request, self.template_name, locals())
@@ -89,7 +89,7 @@ class EntryUpdate(UpdateView):
                 entry.password = engine.encrypt(form.cleaned_data['password'])
                 entry.save()
                 messages.add_message(request, messages.INFO, u'Entry updated: {}'.format(entry.title))
-                return redirect('home')
+                return redirect('passe.manager:home')
             else:
                 form = EntryForm()
         return render(request, self.template_name, locals())
