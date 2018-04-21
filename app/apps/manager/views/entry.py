@@ -5,7 +5,7 @@ import datetime
 from django.shortcuts import redirect
 from django.conf import settings
 from manager.forms import EntryForm
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from manager.models import CryptoEngine, Entry, Category
 from django.views.generic import DetailView
 from django.views.generic import ListView

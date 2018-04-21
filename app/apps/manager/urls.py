@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from manager.views import CategoryCreate, CategoryUpdate, CategoryDelete, EntryDetailView, EntryCreate, EntryUpdate, EntryDelete, EntryListView, entry_search
+from manager.views import CategoryCreate, CategoryUpdate, CategoryDelete, EntryByCategoryListView, EntryDetailView, EntryCreate, EntryUpdate, EntryDelete, EntryListView, entry_search
 
 ENTRY_URLS = [
     url(r'^$', login_required(EntryListView.as_view()), name='details_entry'),

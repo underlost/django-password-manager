@@ -23,9 +23,14 @@ class CategoryListView(ListView):
 class CategoryCreate(CreateView):
     """ Enables creation of new entries """
     model = Category
-    template_name = 'manager/category_create.html'
+    template_name = 'manager/category_update.html'
     form_class = CategoryForm
     success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Create New Category'
+        return context
 
     def post(self, request, *args, **kwargs):
         messages.add_message(request, messages.INFO, "Category added")
@@ -35,9 +40,15 @@ class CategoryCreate(CreateView):
 class CategoryUpdate(UpdateView):
     """ Enables update of a given entry """
     model = Category
-    template_name = 'category_update.html'
+    template_name = 'manager/category_update.html'
     form_class = CategoryForm
     success_url = '/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Update Category'
+        context['updated'] = True
+        return context
 
     def post(self, request, *args, **kwargs):
         messages.add_message(request, messages.INFO, "Category updated")
