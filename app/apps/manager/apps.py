@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 class ManagerConfig(AppConfig):
-    name = 'passe.manager'
+    name = 'manager'
     verbose_name = "Password Manager"
