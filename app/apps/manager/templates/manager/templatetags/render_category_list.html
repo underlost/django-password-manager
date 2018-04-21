@@ -1,0 +1,8 @@
+<div class="card mb-5">
+  <div class="card-header">Categories</div>
+  <ul class="list-group list-group-flush">
+    {% for cat in object_list %}
+    <li class="list-group-item" onclick='searchEntries("{{ cat.title }}")'><a href="#{{ cat.id }}"><i class="icon-chevron-right"></i> {{ cat.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>

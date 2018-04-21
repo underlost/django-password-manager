@@ -15,3 +15,7 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ('title', 'parent')
+        widgets = {
+            'parent': forms.Select({'class': 'form-control', 'placeholder': 'Parent Category (optional)'}),
+            'title': forms.TextInput({'class': 'form-control', 'placeholder': 'Title'})
+        }

@@ -44,6 +44,21 @@ class EntryListView(ListView):
     #     context['cateories'] = categories
     #     return context
 
+class EntryByCategoryListView(ListView):
+    model = Entry
+    context_object_name = 'entries'
+    template_name='manager/entry_list.html'
+    paginate_by = 200
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, pk=self.kwargs.pop('pk'))
+        return Entry.objects.filter(category=self.category)
+
+    def get_context_data(self, **kwargs):
+        context = super(EntryByCategoryListView, self).get_context_data(**kwargs)
+        context.update({'category' : self.category, })
+        return context
+
 
 class EntryCreate(CreateView):
     """ Enables creation of new entries """

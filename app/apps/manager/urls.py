@@ -15,6 +15,7 @@ ENTRY_URLS = [
 CATEGORY_URLS = [
     # url(r'^(?P<pk>\d+)$', login_required(CategoryDetailView.as_view()), name='details_category'),
     url(r'^add/$', login_required(CategoryCreate.as_view()), name='add_category'),
+    url(r'^list/(?P<pk>\d+)/$', login_required(EntryByCategoryListView.as_view()), name='entry_category_list'),
     url(r'^update/(?P<pk>\d+)/$', login_required(CategoryUpdate.as_view()), name='update_category'),
     url(r'^delete/(?P<pk>\d+)/$', login_required(CategoryDelete.as_view()), name='delete_category'),
 ]
