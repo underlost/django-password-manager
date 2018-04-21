@@ -42,9 +42,9 @@ gulp.task('copy-dist', function() {
 
 // Copy fonts task
 gulp.task('copy-fonts', function() {
-  gulp.src('app/static_source/fonts/site/**/*.{ttf,woff,eof,svg,eot,woff2,otf}')
+  gulp.src('app/static_source/fonts/**/*.{ttf,woff,eof,svg,eot,woff2,otf}')
   .pipe(gulp.dest('dist/fonts'));
-  gulp.src('node_modules/components-font-awesome/fonts/**/*.{ttf,woff,eof,svg,eot,woff2,otf}')
+  gulp.src('node_modules/components-font-awesome/webfonts/**/*.{ttf,woff,eof,svg,eot,woff2,otf}')
   .pipe(gulp.dest('dist/fonts'));
 });
 

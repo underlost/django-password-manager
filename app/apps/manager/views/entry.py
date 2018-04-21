@@ -32,7 +32,7 @@ class EntryDetailView(DetailView):
 class EntryListView(ListView):
     model = Entry
     context_object_name = 'entries'
-    template_name = 'entry_list.html'
+    template_name = 'manager/entry_list.html'
     paginate_by = 200
 
 class EntryByCategoryListView(ListView):
@@ -146,4 +146,4 @@ def entry_search(request):
     else:
         entries = Entry.objects.all()
 
-    return render(request, 'entry_list.html', locals())
+    return render(request, 'manager/entry_list.html', locals())
