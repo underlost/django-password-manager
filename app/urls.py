@@ -12,8 +12,7 @@ admin.site.site_header = settings.SITE_NAME
 urlpatterns = [
     url(r'^$', entry_search, name='home'),
     url(r'^admin42/', admin.site.urls),
-    url(r'^entry/', include('manager.urls.entry')),
-    url(r'^category/', include('manager.urls.category')),
     url(r'^api/', include('api.urls')),
+    url(r'^', include('manager.urls')),
 
 ]
