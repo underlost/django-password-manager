@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 import datetime
 from django.shortcuts import redirect
+from django.conf import settings
 from manager.forms import EntryForm
 from django.shortcuts import render
 from manager.models import CryptoEngine, Entry, Category
@@ -24,7 +25,7 @@ class EntryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(EntryDetailView, self).get_context_data(**kwargs)
         decrypted = engine.decrypt(context['entry'].password)
-        print decrypted
+        print(decrypted)
         context['decrypted_password'] = decrypted
         return context
 
@@ -39,7 +40,7 @@ class EntryListView(ListView):
     # def get_context_data(self, **kwargs):
     #     context = super(EntryListView, self).get_context_data(**kwargs)
     #     categories = Category.objects.all()
-    #     print categories
+    #     print(categories)
     #     context['cateories'] = categories
     #     return context
 
@@ -54,7 +55,7 @@ class EntryCreate(CreateView):
     def post(self, request, *args, **kwargs):
 
         if request.user.is_superuser:
-            engine = CryptoEngine(master_key=request.user.password)
+            engine = CryptoEngine(master_key=settings.MASTER_KEY)
 
             form = EntryForm(request.POST)
             if form.is_valid():
@@ -78,7 +79,7 @@ class EntryUpdate(UpdateView):
     def post(self, request, *args, **kwargs):
 
         if request.user.is_superuser:
-            engine = CryptoEngine(master_key=request.user.password)
+            engine = CryptoEngine(master_key=settings.MASTER_KEY)
 
             form = EntryForm(request.POST)
             if form.is_valid():

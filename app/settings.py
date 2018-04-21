@@ -114,6 +114,8 @@ SITE_DESC =  os.environ.get('SITE_DESC', 'Yet another password manager.')
 SITE_URL =  os.environ.get('SITE_URL', '/')
 SITE_AUTHOR = os.environ.get('SITE_AUTHOR', 'Tyler Rilling')
 
+MASTER_KEY = os.environ.get('HASH_SECRET_KEY', '123')
+
 #Amazon S3
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '123')
@@ -213,15 +215,11 @@ INSTALLED_APPS = (
     #external
     'storages',
     'rest_framework',
-    'BruteBuster',
 
     #Internal
     'coreExtend',
     'manager',
-    'generator',
     'api',
-
-
 )
 
 LOGGING = {
@@ -234,11 +232,21 @@ LOGGING = {
             "level": "INFO",
             "class": "logging.StreamHandler",
         },
+        'log_to_stdout': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
     },
     "loggers": {
         # Redefine django logger to use redefined console logging.
         "django": {
-            "handlers": ["console"],
-        }
+            "handlers": ["log_to_stdout"],
+            'level': 'ERROR'
+        },
+        "default": {
+            "handlers": ["log_to_stdout"],
+            'level': 'DEBUG'
+        },
     }
 }

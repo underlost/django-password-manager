@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from manager.views import EntryDetailView, EntryCreate, EntryUpdate, EntryDelete, EntryListView

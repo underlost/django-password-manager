@@ -1,2 +1,2 @@
-from entry import *
-from category import *
+from .entry import *
+from .category import *

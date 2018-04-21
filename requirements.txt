@@ -14,10 +14,7 @@ django-storages>=1.5.2
 zappa>=0.45.1
 
 #Untested
-argparse==1.2.1
-distribute==0.6.34
 django-brutebuster==0.1.8
-mock==1.0.1
-pycrypto==2.6
-selenium==2.33.0
-wsgiref==0.1.2
+#mock==1.0.1 this is built in as unittest.mock
+pycrypto==2.6.1
+selenium==3.11.0

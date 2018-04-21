@@ -7,7 +7,7 @@ from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
 from manager.forms import CategoryForm
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class CategoryDetailView(DetailView):

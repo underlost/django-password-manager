@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.http import HttpResponse
 from manager.models import Entry, CryptoEngine, Category
-from mamanger.generator import Generator
+from manager.generator import Generator
 import json
 import datetime
 

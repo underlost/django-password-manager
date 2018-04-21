@@ -14,7 +14,7 @@ class Entry(models.Model):
     comment = models.TextField(null=True, blank=True)
     expires = models.DateField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
-    category = models.ForeignKey('Category')
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
 
     class Meta:
         ordering = ('title', 'date')
@@ -39,7 +39,7 @@ class Entry(models.Model):
 class Category(models.Model):
 
     title = models.CharField(max_length=200, unique=True)
-    parent = models.ForeignKey('Category', null=True, blank=True)
+    parent = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __unicode__(self):
         return self.title
