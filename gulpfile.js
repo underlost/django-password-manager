@@ -77,19 +77,12 @@ gulp.task('brew-coffee', function() {
   .pipe(gulp.dest('app/static_source/js/coffee/'))
 });
 
-// CSS Build Task for main site/theme
-gulp.task('build-css', function() {
+
+
+gulp.task('build-css', function () {
   return gulp.src('app/static_source/sass/site.scss')
-  .pipe(sass().on('error', sass.logError))
-  .pipe(autoprefixer({
-    browsers: ['last 2 versions'],
-    cascade: false
-  }))
-  .pipe(gulp.dest('dist/css'))
-  .pipe(cleanCSS())
-  .pipe(rename('site.min.css'))
-  .pipe(gulp.dest('dist/css'))
-  .on('error', sass.logError)
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('dist/css'));
 });
 
 // Concat All JS into unminified single file
