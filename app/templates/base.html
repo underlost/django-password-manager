@@ -9,7 +9,7 @@
   <meta http-equiv="x-dns-prefetch-control" content="on">
   <link rel="profile" href="http://gmpg.org/xfn/11" />
   <link type="text/plain" rel="author" href="/humans.txt" />
-  <link rel="stylesheet" href="{{STATIC_URL}}site/css/site.min.css">
+  <link rel="stylesheet" href="{{STATIC_URL}}css/site.min.css">
   {% block meta %}{% endblock %}
   {% block css %}{% endblock %}
   {% block extra %}{% endblock %}
@@ -19,7 +19,7 @@
     {% include "_includes/_header.html" %}
     <div id="river" class="site-content">
       <div id="content" class="site-content fadeIn">
-        {% block content %}{% endblock %}
+        {% block contentWrapper %}{% endblock %}
       </div>
     </div>
   </div>
