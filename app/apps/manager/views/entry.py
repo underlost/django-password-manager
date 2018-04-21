@@ -17,7 +17,6 @@ from django.http import HttpResponse
 
 class EntryDetailView(DetailView):
     """ Details about a given entry """
-
     model = Entry
     context_object_name = 'entry'
     template_name = 'entry_get.html'
@@ -31,18 +30,10 @@ class EntryDetailView(DetailView):
 
 
 class EntryListView(ListView):
-
     model = Entry
     context_object_name = 'entries'
     template_name = 'entry_list.html'
     paginate_by = 200
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(EntryListView, self).get_context_data(**kwargs)
-    #     categories = Category.objects.all()
-    #     print(categories)
-    #     context['cateories'] = categories
-    #     return context
 
 class EntryByCategoryListView(ListView):
     model = Entry
@@ -64,8 +55,14 @@ class EntryCreate(CreateView):
     """ Enables creation of new entries """
 
     model = Entry
-    template_name = 'entry_create.html'
+    template_name = 'manager/entry_update.html'
     form_class = EntryForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Create New Entry'
+        context['updating'] = False
+        return context
 
     def post(self, request, *args, **kwargs):
 
@@ -88,8 +85,14 @@ class EntryUpdate(UpdateView):
     """ Enables update of a given entry """
 
     model = Entry
-    template_name = 'entry_update.html'
+    template_name = 'manager/entry_update.html'
     form_class = EntryForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_title'] = 'Update Entry'
+        context['updating'] = True
+        return context
 
     def post(self, request, *args, **kwargs):
 

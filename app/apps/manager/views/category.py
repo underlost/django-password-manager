@@ -47,7 +47,7 @@ class CategoryUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_title'] = 'Update Category'
-        context['updated'] = True
+        context['updating'] = True
         return context
 
     def post(self, request, *args, **kwargs):
