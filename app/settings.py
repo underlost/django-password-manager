@@ -90,7 +90,7 @@ SITE_ID = 1
 USE_I18N = False
 USE_L10N = False
 AUTH_USER_MODEL = 'coreExtend.Account'
-LOGIN_REDIRECT_URL = '/replica/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 ALLOW_NEW_REGISTRATIONS = False
@@ -163,7 +163,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'coreExtend.context_processors.template_settings',
                 'coreExtend.context_processors.template_times',
-                'replica.context_processors.currentSite',
                 'django.template.context_processors.request',
             ],
             'debug': DEBUG,
