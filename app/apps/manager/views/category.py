@@ -8,14 +8,12 @@ from django.urls import reverse
 
 class CategoryDetailView(DetailView):
     """ Details about a given entry """
-
     model = Category
     context_object_name = 'category'
     template_name = 'category_get.html'
 
 
 class CategoryListView(ListView):
-
     model = Category
     context_object_name = 'categories'
     template_name = 'category_list.html'
@@ -24,9 +22,8 @@ class CategoryListView(ListView):
 
 class CategoryCreate(CreateView):
     """ Enables creation of new entries """
-
     model = Category
-    template_name = 'category_create.html'
+    template_name = 'manager/category_create.html'
     form_class = CategoryForm
     success_url = '/'
 
@@ -37,7 +34,6 @@ class CategoryCreate(CreateView):
 
 class CategoryUpdate(UpdateView):
     """ Enables update of a given entry """
-
     model = Category
     template_name = 'category_update.html'
     form_class = CategoryForm
@@ -50,7 +46,6 @@ class CategoryUpdate(UpdateView):
 
 class CategoryDelete(DeleteView):
     """ Enables deletion of a given entry """
-
     model = Category
     context_object_name = 'category'
     template_name = 'category_delete.html'

@@ -1,0 +1,17 @@
+{% extends "manager/base.html" %}{% load category_tags %}
+
+{% block sidebar %}
+{% render_categories %}
+{% endblock %}
+
+{% block content %}
+<div>
+  <h2 class="section-header">Create New Category</h2>
+  <hr />
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </form>
+</div>
+{% endblock %}
