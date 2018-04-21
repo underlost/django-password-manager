@@ -14,7 +14,7 @@ class Entry(models.Model):
     comment = models.TextField(null=True, blank=True)
     expires = models.DateField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         ordering = ('title', 'date')

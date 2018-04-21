@@ -1,3 +1,4 @@
+import logging
 from django import forms
 from django.forms import widgets, Select
 from django.conf import settings
@@ -8,6 +9,7 @@ from django.utils.translation import ugettext as _, ugettext_lazy as __
 from django.contrib.auth.hashers import make_password, check_password
 
 from .models import Account
+logger = logging.getLogger('default')
 
 class LoginAuthenticationForm(AuthenticationForm):
     master_password = forms.CharField(label=_('Master Password'), widget=forms.PasswordInput(attrs={'placeholder':'Master Password'}))
@@ -17,7 +19,7 @@ class LoginAuthenticationForm(AuthenticationForm):
         self.fields['username'].widget.attrs.update({'placeholder': 'Username'})
         self.fields['password'].widget.attrs.update({'placeholder': 'Password'})
 
-    def clean_master_secret(self):
+    def clean_master_password(self):
         secret = self.cleaned_data['master_password']
         if secret:
             # Check if this matches the master key hash

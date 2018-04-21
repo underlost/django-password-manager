@@ -36,13 +36,13 @@
                     <a class="brand" href="/">Password Manager v0.2</a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right">
-                            <li><a  id="entry" href="/entry/add"><i class="icon-plus
+                            <li><a  id="entry" href="{% url 'passe.manager:add_entry' %}"><i class="icon-plus
                                     icon-white"></i> Entry</a></li>
-                            <li class=""><a href="/category/add"><i class="icon-tag
+                            <li class=""><a href="{% url 'passe.manager:add_category' %}/"><i class="icon-tag
                                     icon-white"></i> Category</a></li>
-                            <li><a href="/admin/"><i class="icon-user
+                            <li><a href="{% url 'coreExtend:AccountSettings' %}"><i class="icon-user
                                     icon-white"></i> {{ user.username|capfirst }}</a></li>
-                            <li title="Logout"><a href="/logout"><i class="icon-off
+                            <li title="Logout"><a href="{% url 'coreExtend:Logout' %}"><i class="icon-off
                                     icon-white"></i> {# Logout #}</a></li>
                         </ul>
 

@@ -1,23 +1,24 @@
 {% extends "base_generic.html" %}
+{% load core_tags %}
 {% load extra_tags %}
 {% block content %}
 <div class="hero-unit">
-    <form action="{% url 'add_entry' %}" method="post">
+    <form action="{% url 'passe.manager:add_entry' %}" method="post">
         {% csrf_token %}
         {% for field in form %}
             {% if field.html_name != 'password' %}
                 <p>
                     {{ field.errors }}
                     {{ field.label_tag }}
-                    {{ field }}
+                    {{ field | addcss:"form-control" }}
                 </p>
             {% else %}
                 <p>
                     {{ field.errors }}
                     {{ field.label_tag }}
                     <div class="input-append">
-                        {{ field }}
-                        <input id="length" type="text" class="input-mini" value="25">
+                        {{ field | addcss:"form-control" }}
+                        <input id="length" type="text" class="input-mini form-control" value="25">
                         <button class="btn" type="button"
                             id="generate"><i class="icon-cog"></i></button>
                     </div>
@@ -26,8 +27,6 @@
                 </p>
             {% endif %}
         {% endfor %}
-        {# {{ form.as_p }} #}
-        <button id="entry_create" class="btn btn-primary">Submit</button> 
         <input class="btn btn-primary" type="submit" value="Submit" />
     </form>
 </div>

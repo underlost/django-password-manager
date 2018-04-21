@@ -16,6 +16,7 @@
 <p class="logged-in">Already Logged in. <a href="{% url 'coreExtend:Logout' %}">Logout?</a></p>
 {% else %}
 <h2 class="heading">Login</h2>
+{{form.non_field_errors}}
 <form class="form-signin" method="post" action="{% url 'coreExtend:login' %}">{% csrf_token %}
     <div class="form-group {% if form.username.errors %}has-error{% endif %}">
         <label for="id_username" class="sr-only">{% trans 'Username' %}</label>
