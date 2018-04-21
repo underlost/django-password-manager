@@ -6,7 +6,7 @@
 {% block content %}
 <ol class="breadcrumb">
     <li><a href="{{site_url}}">Home</a></li>
-    <li><a href="{% url 'CoreExtend:password_reset' %}">Password Reset</a></li>
+    <li><a href="{% url 'coreExtend:password_reset' %}">Password Reset</a></li>
     <li class="active">Complete</li>
 </ol>
 
@@ -15,6 +15,6 @@
 
     <p>{% trans "Your password has been set.  You may go ahead and log in now." %}</p>
 
-    <a class="btn btn-primary" href="{% url 'CoreExtend:login' %}">{% trans 'Log in' %}</a>
+    <a class="btn btn-primary" href="{% url 'coreExtend:login' %}">{% trans 'Log in' %}</a>
 </div>
 {% endblock %}
