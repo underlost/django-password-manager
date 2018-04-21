@@ -28,3 +28,9 @@ def display_name(value):
 	else:
 		n = "%s" % (u.username)
 	return n
+
+@register.filter(name='addcss')
+def addcss(field, css):
+    old_classes = field.field.widget.attrs.get('class', None)
+    new_classes = old_classes + ' ' + css if old_classes else css
+    return field.as_widget(attrs={"class": new_classes})

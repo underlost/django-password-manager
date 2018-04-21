@@ -1,11 +1,32 @@
 from django import forms
 from django.forms import widgets, Select
+from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.utils.translation import ugettext as _, ugettext_lazy as __
+from django.contrib.auth.hashers import make_password, check_password
 
 from .models import Account
+
+class LoginAuthenticationForm(AuthenticationForm):
+    master_password = forms.CharField(label=_('Master Password'), widget=forms.PasswordInput(attrs={'placeholder':'Master Password'}))
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'placeholder': 'Username'})
+        self.fields['password'].widget.attrs.update({'placeholder': 'Password'})
+
+    def clean_master_secret(self):
+        secret = self.cleaned_data['master_password']
+        if secret:
+            # Check if this matches the master key hash
+            if not check_password(secret, settings.MASTER_KEY):
+                raise forms.ValidationError("Master password not valid.")
+
+        # Always return a value to use as the new cleaned data, even if
+        # this method didn't change it.
+        return secret
 
 class AccountForm(forms.ModelForm):
     #Assumes that the Account instance passed in has an associated User

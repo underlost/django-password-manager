@@ -46,7 +46,7 @@
                                     icon-white"></i> {# Logout #}</a></li>
                         </ul>
 
-                        <form method="post" action="{% url 'home' %}"
+                        <form method="post" action="{% url 'passe.manager:home' %}"
                             id="form-search" class="navbar-search pull-right">
                             {% csrf_token %}  <!-- Do not forget this!!-->
                             <input name="search" id="search" type="text" class="search-query"

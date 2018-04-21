@@ -1,4 +1,4 @@
-{% extends "coreExtend/base.html" %}{% load i18n %}
+{% extends "coreExtend/base.html" %}{% load i18n %}{% load core_tags %}
 
 {% block title %}Log in | {% endblock %}
 {% block page %}core login{% endblock %}
@@ -17,7 +17,7 @@
 <form class="form-signin" method="post" action="{% url 'coreExtend:login' %}">{% csrf_token %}
     <div class="form-group {% if form.username.errors %}has-error{% endif %}">
         <label for="id_username" class="sr-only">{% trans 'Username' %}</label>
-        <input id="id_username" class="form-control" placeholder="Username" type="text" name="username" maxlength="255" />
+        {{form.username | addcss:"form-control"}}
         {% if form.username.errors %}
         <span class="help-block">{{ form.username.errors }}</span>
         {% endif %}
@@ -25,13 +25,20 @@
 
     <div class="form-group {% if form.password.errors %}has-error{% endif %}">
         <label for="id_password" class="sr-only">{% trans 'Password' %}</label>
-        <input id="id_password" class="form-control" placeholder="Password" type="password" name="password" />
+        {{form.password | addcss:"form-control"}}
         {% if form.password.errors %}
         <span class="help-block">{{ form.password.errors }}</span>
         {% endif %}
     </div>
+    <div class="form-group {% if form.master_password.errors %}has-error{% endif %}">
+        <label for="id_master_password" class="sr-only">{% trans 'Master Password' %}</label>
+        {{form.master_password | addcss:"form-control"}}
+        {% if form.master_password.errors %}
+        <span class="help-block">{{ form.master_password.errors }}</span>
+        {% endif %}
+    </div>
 
-    <input class="btn btn-primary btn-block" type="submit" value="login" />
+    <input class="btn btn-primary btn-block" type="submit" value="Login" />
     <input type="hidden" name="next" value="{{ next }}" />
 </form>
 

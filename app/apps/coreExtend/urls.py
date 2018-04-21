@@ -4,16 +4,18 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 
-from .forms import PasswordResetForm
+from .forms import PasswordResetForm, LoginAuthenticationForm
 from . import views
 
 app_name="coreExtend"
 
 urlpatterns = [
-    url(r'^login/$', auth_views.login, {
-        'template_name': 'coreExtend/login.html',
-        'extra_context': {'account_settings': True,},
-    } , name='login'),
+    url(r'^login/$', auth_views.LoginView.as_view(
+        template_name='coreExtend/login.html',
+        authentication_form=LoginAuthenticationForm,
+        extra_context={'account_settings': True,}),
+        name='login'
+    ),
 
     # Password Change
     url(r'^account/password/$', auth_views.password_change, {
