@@ -11,6 +11,9 @@
 <small class="float-right"><a href="{% url 'passe.manager:update_category' pk=category.id %}"><i class="fas fa-edit"></i></a></small>
 <h2>{{category}}</h2>
 {% endif %}
+{% if search %}
+<h3>Showing results for "{{search}}":</h3>
+{% endif %}
 <div class="row">
 {% for e in entries %}
   <div class="col-md-6">

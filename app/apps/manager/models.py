@@ -1,5 +1,6 @@
 import markdown
 import uuid
+import logging
 
 from django.db import models
 from django.conf import settings
@@ -7,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from .utils import AESCipher
 from .manager import EntryManager
+
+logger = logging.getLogger('default')
 
 IS_PUBLIC_CHOICES = ((True, 'Everyone'), (False, 'Just me'),)
 
@@ -63,9 +66,15 @@ class Entry(models.Model):
         else:
             # updating, check if we need to update the stored password
             if self.password and self._old_password:
-                decoded = cipher.decrypt(self._old_password)
-                if self.password != decoded:
-                    # old pass and new don't match, update the password
+                try:
+                    decoded = cipher.decrypt(self._old_password)
+                    if self.password != decoded:
+                        # old pass and new don't match, update the password
+                        self.password = cipher.encrypt(self.password).decode('utf-8')
+                    else:
+                        # they do match, keep the old password
+                        self.password = self._old_password
+                except Exception as e:
                     self.password = cipher.encrypt(self.password).decode('utf-8')
 
         super(Entry, self).save(*args, **kwargs)
