@@ -3,7 +3,7 @@
 {% block contentWrapper %}
 <div class="container">
   {% if messages %}
-  <div class="messages">
+  <div class="messages mt-5">
     {% for message in messages %}
     <div class="alert alert-secondary {{ message.tags }}" role="alert">
       {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}

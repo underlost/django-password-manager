@@ -9,8 +9,16 @@
 {% if category %}
 <h2>{{category}}</h2>
 {% endif %}
+<div class="row">
 {% for e in entries %}
-  {% include "manager/_includes/_entry.html" %}
+  <div class="col-md-6">
+    {% include "manager/_includes/_entry.html" %}
+  </div>
+  {% empty %}
+  <div class="card px-3 py-3">
+    No Entries found.
+  </div>
 {% endfor %}
+</div>
 
 {% endblock %}
