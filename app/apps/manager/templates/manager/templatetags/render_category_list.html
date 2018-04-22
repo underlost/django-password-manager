@@ -1,9 +1,6 @@
 <div class="card mb-5">
   <div class="card-header">
-    <div class="float-right">
-      <a href="{% url 'passe.manager:add_category' %}"><i class="fas fa-plus"></i> New</a>
-    </div>
-    Categories
+    <h6 class="mb-0">Categories<small class="ml-2"><a href="{% url 'passe.manager:add_category' %}"><i class="fas fa-plus"></i> New</a></small></h6>
   </div>
   <ul class="list-group list-group-flush">
     {% for cat in object_list %}
