@@ -6,18 +6,18 @@ from manager.views import CategoryCreate, CategoryUpdate, CategoryDelete, EntryB
 
 ENTRY_URLS = [
     url(r'^$', login_required(EntryListView.as_view()), name='details_entry'),
-    url(r'^(?P<pk>\d+)/$', login_required(EntryDetailView.as_view()), name='details_entry'),
+    url(r'^(?P<pk>[\w-]+)/$', login_required(EntryDetailView.as_view()), name='details_entry'),
     url(r'^add/$', login_required(EntryCreate.as_view()), name='add_entry'),
-    url(r'^update/(?P<pk>\d+)/$', login_required(EntryUpdate.as_view()), name='update_entry'),
-    url(r'^delete/(?P<pk>\d+)/$', user_passes_test(lambda u: u.is_superuser)(login_required(EntryDelete.as_view())), name='delete_entry'),
+    url(r'^update/(?P<pk>[\w-]+)/$', login_required(EntryUpdate.as_view()), name='update_entry'),
+    url(r'^delete/(?P<pk>[\w-]+)/$', user_passes_test(lambda u: u.is_superuser)(login_required(EntryDelete.as_view())), name='delete_entry'),
 ]
 
 CATEGORY_URLS = [
     # url(r'^(?P<pk>\d+)$', login_required(CategoryDetailView.as_view()), name='details_category'),
     url(r'^add/$', login_required(CategoryCreate.as_view()), name='add_category'),
-    url(r'^list/(?P<pk>\d+)/$', login_required(EntryByCategoryListView.as_view()), name='entry_category_list'),
-    url(r'^update/(?P<pk>\d+)/$', login_required(CategoryUpdate.as_view()), name='update_category'),
-    url(r'^delete/(?P<pk>\d+)/$', login_required(CategoryDelete.as_view()), name='delete_category'),
+    url(r'^list/(?P<pk>[\w-]+)/$', login_required(EntryByCategoryListView.as_view()), name='entry_category_list'),
+    url(r'^update/(?P<pk>[\w-]+)/$', login_required(CategoryUpdate.as_view()), name='update_category'),
+    url(r'^delete/(?P<pk>[\w-]+)/$', login_required(CategoryDelete.as_view()), name='delete_category'),
 ]
 
 app_name="passe.manager"
