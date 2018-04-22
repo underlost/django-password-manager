@@ -2,7 +2,7 @@
 {% load extra_tags %}{% load category_tags %}
 
 {% block sidebar %}
-<a class="btn btn-primary px-5" href="{% url 'passe.manager:add_entry' %}">New Entry</a>
+<a class="btn btn-primary btn-block" href="{% url 'passe.manager:add_entry' %}">New Entry</a>
 {% render_categories %}
 {% endblock %}
 

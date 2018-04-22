@@ -23,9 +23,11 @@
                   <img class="rounded-circle avatar" width="24" height="24" src="https://secure.gravatar.com/avatar/{{ user.hash }}?s=32&amp;d={{STATIC_URL}}img/gravatar.png">
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'coreExtend:AccountSettings' %}">Account Settings</a>
-                    <a class="dropdown-item" href="{% url 'coreExtend:password_change' %}">Change Password</a>
-                    <a class="dropdown-item" href="{% url 'coreExtend:Logout' %}">Logout</a>
+                  <a class="dropdown-item" href="{% url 'passe.manager:personal_entry_list' %}">My Passwords</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'coreExtend:AccountSettings' %}">Account Settings</a>
+                  <a class="dropdown-item" href="{% url 'coreExtend:password_change' %}">Change Password</a>
+                  <a class="dropdown-item" href="{% url 'coreExtend:Logout' %}">Logout</a>
                 </div>
             </li>
       </ul>
