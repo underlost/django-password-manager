@@ -1,42 +1,16 @@
-Password Manager
+Passe (Password Manager)
 =======
 
-Enables password Management through one Master Key and via AES 256 encryption
-The passwords are encrypted into the DB on the server and only the provided key
-when logged in can decrypt them.
+Passe is a password manager designed to work for small teams/groups of people to share login and other types of credentials easily and securely.
 
-Demo here: http://demo-password-manager.herokuapp.com/
-
-- login: test
-- password: test
-
-
-Installation
-=======
-
-1. Git clone this repo
-2. Add an heroku app
-
-> git heroku git:remote -a app-name
-
-3. Deploy on Heroku
-
-> git push heroku master
-
-
-DB Config
+Coming soon to future versions
 ======
-
-Set up the admin user + password when asked by Heroku
-The masterKey used to encrypt the passwords is obtained by hashing your DB
-password with a sequence of MD5.
-Advice: Use a strong masterKey password to ensure good protection of your
-passwords!
+* Private entries
+* Group based access
+* Better UI
+* Deployment instructions for Heroku and lambda.
 
 
-Techs used
+Credit
 ======
-
-Django is used as the web framework.
-Some Javascript (AJAX calls) and Bootstrap (Twitter Bootstrap) are used to enhance the frontend.
-TDD is used as the coding philosophy.
+The app is based loosely on [django-password-manager](https://github.com/Chouffe/django-password-manager), however at this point it's only a source of information and guidance. Passe has been rewritten from the ground up to support python 3, Django 2, and frontend frameworks like Bootstrap 4.1. The structure and password hashing has also been replaced.
