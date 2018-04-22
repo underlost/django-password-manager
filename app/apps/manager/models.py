@@ -21,8 +21,8 @@ class Entry(models.Model):
     comment_html = models.TextField(null=True, blank=True)
     expires = models.DateField(null=True, blank=True)
     category = models.ManyToManyField('Category', blank=True)
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True, editable=False)
+    date_updated = models.DateTimeField(auto_now=True, editable=False)
     is_public = models.BooleanField(help_text=_("Who can see this entry?"), choices=IS_PUBLIC_CHOICES, default=True)
     objects = EntryManager()
 
