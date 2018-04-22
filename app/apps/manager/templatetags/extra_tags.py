@@ -8,7 +8,7 @@ register = template.Library()
 
 
 @register.filter(is_safe=True)
-def decrypt(text, master_key):
+def decrypt(text):
     if text:
         engine = AESCipher(settings.MASTER_KEY)
         return engine.decrypt(text)
