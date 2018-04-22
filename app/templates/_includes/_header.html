@@ -32,7 +32,7 @@
 
       <form method="post" class="form-inline my-2 my-lg-0" action="{% url 'passe.manager:home' %}" id="form-search">
           {% csrf_token %}
-          <input name="search" id="search" type="text" class="search-query form-control mr-sm-2" placeholder="Search" data-provide="typeahead" autocomplete="off" value="{{ search }}">
+          <input name="search" id="search" type="text" class="search-query form-control mr-sm-2" placeholder="Search" autocomplete="off" value="{{ search }}">
           <button class="btn btn-primary my-2 my-sm-0 sr-only" type="submit">Search</button>
       </form>
       {% endif %}

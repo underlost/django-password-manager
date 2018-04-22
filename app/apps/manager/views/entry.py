@@ -5,6 +5,7 @@ import datetime
 from django.shortcuts import redirect
 from django.conf import settings
 from manager.forms import EntryForm
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
 from manager.models import Entry, Category
 from django.views.generic import DetailView
@@ -131,7 +132,8 @@ def entry_search(request):
     # Loads the entries
     if request.POST:
         if request.POST['search']:
-            entries = Entry.objects.filter(title__contains=request.POST['search'])
+            term = request.POST['search']
+            entries = Entry.objects.filter(Q(title__icontains=term) | Q(comment__icontains=term))
             search = request.POST['search']
         else:
             entries = Entry.objects.all()
