@@ -106,17 +106,15 @@ class EntryUpdate(UpdateView):
         return context
 
     def post(self, request, *args, **kwargs):
-
-        if request.user.is_superuser:
-            form = EntryForm(request.POST)
-            if form.is_valid():
-                entry = form.save(commit=False)
-                entry.id = kwargs['pk']
-                entry.save()
-                messages.add_message(request, messages.INFO, u'Entry updated: {}'.format(entry.title))
-                return redirect('passe.manager:home')
-            else:
-                form = EntryForm()
+        form = EntryForm(request.POST)
+        if form.is_valid():
+            entry = form.save(commit=False)
+            entry.id = kwargs['pk']
+            entry.save()
+            messages.add_message(request, messages.INFO, u'Entry updated: {}'.format(entry.title))
+            return redirect('passe.manager:home')
+        else:
+            form = EntryForm()
         return render(request, self.template_name, locals())
 
 

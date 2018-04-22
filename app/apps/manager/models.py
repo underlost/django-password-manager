@@ -20,7 +20,6 @@ class Entry(models.Model):
     comment = models.TextField(null=True, blank=True)
     comment_html = models.TextField(null=True, blank=True)
     expires = models.DateField(null=True, blank=True)
-    date = models.DateField(auto_now_add=True)
     category = models.ManyToManyField('Category', blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
@@ -28,7 +27,7 @@ class Entry(models.Model):
     objects = EntryManager()
 
     class Meta:
-        ordering = ('title', 'date')
+        ordering = ('title', 'date_updated')
         verbose_name_plural = "Entries"
 
     def __str__(self):
@@ -42,7 +41,8 @@ class Entry(models.Model):
         dic['username'] = self.username
         dic['password'] = self.password
         dic['comment'] = self.comment
-        dic['date'] = str(self.date)
+        dic['date_updated'] = str(self.date_updated)
+        dic['date_created'] = str(self.date_created)
         dic['expires'] = str(self.expires)
         dic['category'] = self.category.title
         return dic
