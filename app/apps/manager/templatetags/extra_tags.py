@@ -9,8 +9,11 @@ register = template.Library()
 
 @register.filter(is_safe=True)
 def decrypt(text, master_key):
-    engine = AESCipher(settings.MASTER_KEY)
-    return engine.decrypt(text)
+    if text:
+        engine = AESCipher(settings.MASTER_KEY)
+        return engine.decrypt(text)
+    else:
+        return ''
 
 
 @register.filter(is_safe=True)
