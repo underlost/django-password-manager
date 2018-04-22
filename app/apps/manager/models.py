@@ -3,11 +3,15 @@ import uuid
 
 from django.db import models
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 
 from .utils import AESCipher
 
+IS_PUBLIC_CHOICES = ((True, 'Everyone'), (False, 'Just me'),)
+
 class Entry(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='entries', on_delete=models.SET_NULL, null=True, blank=True)
     title = models.CharField(max_length=200)
     url = models.CharField(max_length=200, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
@@ -16,9 +20,10 @@ class Entry(models.Model):
     comment_html = models.TextField(null=True, blank=True)
     expires = models.DateField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
-    category = models.ManyToManyField('Category', null=True, blank=True)
+    category = models.ManyToManyField('Category', blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
+    is_public = models.BooleanField(help_text=_("Who can see this entry?"), choices=IS_PUBLIC_CHOICES, default=True)
 
     class Meta:
         ordering = ('title', 'date')

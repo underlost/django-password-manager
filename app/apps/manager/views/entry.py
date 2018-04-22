@@ -68,21 +68,19 @@ class EntryCreate(CreateView):
         return context
 
     def post(self, request, *args, **kwargs):
-
-        if request.user.is_superuser:
-            form = EntryForm(request.POST)
-            if form.is_valid():
-                entry = form.save()
-                messages.add_message(request, messages.INFO, u'New entry added: {}'.format(entry.title))
-                return redirect('passe.manager:home')
-            else:
-                form = EntryForm()
+        instance = Entry(user=request.user)
+        form = EntryForm(request.POST, instance=instance)
+        if form.is_valid():
+            entry = form.save()
+            messages.add_message(request, messages.INFO, u'New entry added: {}'.format(entry.title))
+            return redirect('passe.manager:home')
+        else:
+            form = EntryForm()
         return render(request, self.template_name, locals())
 
 
 class EntryUpdate(UpdateView):
     """ Enables update of a given entry """
-
     model = Entry
     template_name = 'manager/entry_update.html'
     form_class = EntryForm
@@ -111,7 +109,6 @@ class EntryUpdate(UpdateView):
 
 class EntryDelete(DeleteView):
     """ Enables deletion of a given entry """
-
     model = Entry
     context_object_name = 'obj'
     template_name = 'manager/delete.html'

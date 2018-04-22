@@ -5,8 +5,8 @@ from .models import Entry, Category
 class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ('title', 'url', 'username', 'password', 'comment', 'expires', 'category')
-        exclude = ['id', 'comment_html', 'date_created', 'date_updated', ]
+        fields = ('title', 'url', 'username', 'password', 'comment', 'expires', 'category', 'is_public', )
+        exclude = ['id', 'comment_html', 'date_created', 'date_updated', 'user']
         widgets = {
             'title': forms.TextInput({'class': 'form-control', 'placeholder': 'Title'}),
             'url': forms.TextInput({'class': 'form-control', 'placeholder': 'Site URL'}),
@@ -15,6 +15,7 @@ class EntryForm(forms.ModelForm):
             'comment': forms.Textarea({'class': 'form-control', 'placeholder': 'Additional comments here. Markdown supported.'}),
             'expires': forms.TextInput(attrs={'class': 'form-control datepicker'}),
             'category': forms.CheckboxSelectMultiple({'class': 'list-unstyled',}),
+            'is_public': forms.RadioSelect({'class': 'list-unstyled',})
         }
 
 
