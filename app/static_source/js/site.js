@@ -4,5 +4,5 @@ $(function() {
 
 function toggleVisibility(elem) {
   $(elem).find('.password').toggle();
-  $(elem).find('.btn').toggle();
+  $(elem).find('.show-pass').toggle();
 }

@@ -14,7 +14,7 @@
         {% endif %}
         {% if e.password %}
         <span class="d-block">
-          Password: <span onClick="toggleVisibility(this);"><a href="" class="">Show Password</a>
+          Password: <span onClick="toggleVisibility(this);"><a href="#" class="show-pass">Show Password</a>
             <span class="password" style="display:none;">{{ e.password|decrypt }}</span></span>
         </span>
         {% endif %}
