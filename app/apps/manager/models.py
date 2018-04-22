@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from .utils import AESCipher
+from .manager import EntryManager
 
 IS_PUBLIC_CHOICES = ((True, 'Everyone'), (False, 'Just me'),)
 
@@ -24,6 +25,7 @@ class Entry(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     is_public = models.BooleanField(help_text=_("Who can see this entry?"), choices=IS_PUBLIC_CHOICES, default=True)
+    objects = EntryManager()
 
     class Meta:
         ordering = ('title', 'date')

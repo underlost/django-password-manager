@@ -2,16 +2,6 @@
 
 {% block contentWrapper %}
 <div class="container">
-  {% if messages %}
-  <div class="messages mt-5">
-    {% for message in messages %}
-    <div class="alert alert-secondary {{ message.tags }}" role="alert">
-      {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
-      {{ message }}
-    </div>
-    {% endfor %}
-  </div>
-  {% endif %}
   <div class="row mt-5">
     <div class="col-md-8 mb-5">
       <div class="site-content">

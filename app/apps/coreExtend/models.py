@@ -15,6 +15,7 @@ GENDER_CHOICES = (
 	('N', _('Ninja')),
 	('R', _('Robot')),
 	('O', _('Other')),
+    ('B', _('Non-binary')),
 )
 
 class Account(AbstractUser):

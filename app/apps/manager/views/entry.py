@@ -38,6 +38,9 @@ class EntryListView(ListView):
     template_name = 'manager/entry_list.html'
     paginate_by = 200
 
+    def get_queryset(self):
+        return Entry.objects.public()
+
 class EntryByCategoryListView(ListView):
     model = Entry
     context_object_name = 'entries'
@@ -46,7 +49,7 @@ class EntryByCategoryListView(ListView):
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, pk=self.kwargs.pop('pk'))
-        return Entry.objects.filter(category=self.category)
+        return Entry.objects.public().filter(category=self.category)
 
     def get_context_data(self, **kwargs):
         context = super(EntryByCategoryListView, self).get_context_data(**kwargs)
@@ -130,14 +133,14 @@ def entry_search(request):
     if request.POST:
         if request.POST['search']:
             term = request.POST['search']
-            entries = Entry.objects.filter(Q(title__icontains=term) | Q(comment__icontains=term))
+            entries = Entry.objects.public().filter(Q(title__icontains=term) | Q(comment__icontains=term))
             search = request.POST['search']
         else:
-            entries = Entry.objects.all()
+            entries = Entry.objects.public()
 
         if len(entries) == 0:
             messages.add_message(request, messages.WARNING, u'No entries related to {}'.format(request.POST['search']))
     else:
-        entries = Entry.objects.all()
+        entries = Entry.objects.public()
 
     return render(request, 'manager/entry_list.html', locals())
