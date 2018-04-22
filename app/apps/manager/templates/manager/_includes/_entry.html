@@ -1,4 +1,4 @@
-<div class="card mb-2">
+<div class="card mb-2">{% load extra_tags %}
   <div class="card-header">
   <h5 class="mb-0">{{ e.title }}<small class="ml-2"><a href="{% url 'passe.manager:update_entry' pk=e.id %}">(edit)</a></small></h5>
   {% if e.expires %}<div class="float-right">{{e.expires}}</div>{% endif %}
