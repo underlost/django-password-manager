@@ -1,4 +1,5 @@
 import markdown
+import uuid
 
 from django.db import models
 from django.conf import settings
@@ -6,6 +7,7 @@ from django.conf import settings
 from .utils import AESCipher
 
 class Entry(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200)
     url = models.CharField(max_length=200, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
@@ -15,12 +17,17 @@ class Entry(models.Model):
     expires = models.DateField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
     category = models.ManyToManyField('Category', null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ('title', 'date')
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = 'entries'
 
     def dict(self):
         dic = {}
@@ -60,9 +67,18 @@ class Entry(models.Model):
 
 
 class Category(models.Model):
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=200, unique=True)
     parent = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name_plural = 'categories'
+
+    def entry_count(self):
+        total = Entry.objects.filter(category=self).count()
+        return total

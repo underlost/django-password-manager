@@ -6,6 +6,7 @@ class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ('title', 'url', 'username', 'password', 'comment', 'expires', 'category')
+        exclude = ['id', 'comment_html', 'date_created', 'date_updated', ]
         widgets = {
             'title': forms.TextInput({'class': 'form-control', 'placeholder': 'Title'}),
             'url': forms.TextInput({'class': 'form-control', 'placeholder': 'Site URL'}),
@@ -20,6 +21,7 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ('title', 'parent')
+        exclude = ['id', 'date_created', 'date_updated', ]
         widgets = {
             'parent': forms.Select({'class': 'form-control', 'placeholder': 'Parent Category (optional)'}),
             'title': forms.TextInput({'class': 'form-control', 'placeholder': 'Title'}),
