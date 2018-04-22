@@ -71,7 +71,7 @@ class EntryCreate(CreateView):
         if request.user.is_superuser:
             form = EntryForm(request.POST)
             if form.is_valid():
-                entry.save()
+                entry = form.save()
                 messages.add_message(request, messages.INFO, u'New entry added: {}'.format(entry.title))
                 return redirect('passe.manager:home')
             else:
