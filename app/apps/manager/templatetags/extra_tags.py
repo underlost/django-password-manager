@@ -1,5 +1,6 @@
 from django import template
-from manager.models import CryptoEngine
+from django.conf import settings
+from manager.utils import AESCipher
 import datetime
 
 
@@ -8,7 +9,7 @@ register = template.Library()
 
 @register.filter(is_safe=True)
 def decrypt(text, master_key):
-    engine = CryptoEngine(master_key=master_key)
+    engine = AESCipher(settings.MASTER_KEY)
     return engine.decrypt(text)
 
 

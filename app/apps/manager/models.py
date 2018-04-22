@@ -1,10 +1,7 @@
-from Crypto.Cipher import AES
-from Crypto.Hash import MD5
-from base64 import encodestring, decodestring, b64encode, b64decode
 from django.db import models
-from Crypto import Random
-import json
+from django.conf import settings
 
+from .utils import AESCipher
 
 class Entry(models.Model):
     title = models.CharField(max_length=200)
@@ -35,6 +32,28 @@ class Entry(models.Model):
         dic['category'] = self.category.title
         return dic
 
+    @classmethod
+    def from_db(self, db, field_names, values):
+        new = super(Entry, self).from_db(db, field_names, values)
+        # cache value went from the base
+        new._old_password = values[field_names.index('password')]
+        return new
+
+    def save(self, *args, **kwargs):
+        cipher = AESCipher(settings.MASTER_KEY)
+        if self._state.adding:
+            # encrypt the password
+            self.password = cipher.encrypt(self.password).decode('utf-8')
+        else:
+            # updating, check if we need to update the stored password
+            if self.password and self._old_password:
+                decoded = cipher.decrypt(self._old_password)
+                if self.password != decoded:
+                    # old pass and new don't match, update the password
+                    self.password = cipher.encrypt(self.password).decode('utf-8')
+
+        super(Entry, self).save(*args, **kwargs)
+
 
 class Category(models.Model):
 
@@ -43,35 +62,3 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class CryptoEngine:
-
-    PADDING = '{'
-    BLOCK_SIZE = 32
-    # TODO: use the random bit string as salt
-    IV = Random.new().read(AES.block_size)
-
-    def __init__(self, master_key):
-
-        self.master_key = master_key.encode('utf-8')
-        self.secret = self._get_secret(master_key)
-        self.cipher = AES.new(self.secret)
-        self.decipher = AES.new(self.secret)
-        # self.cipher = AES.new(self.secret, AES.MODE_CBC, IV)
-        # self.decipher = AES.new(self.secret, AES.MODE_CBC, IV)
-
-    def _pad(self, msg, block_size=BLOCK_SIZE, padding=PADDING):
-        return msg + ((block_size - len(msg) % block_size) * padding)
-
-    def _depad(self, msg, padding=PADDING):
-        return msg.rstrip(padding.encode('utf-8'))
-
-    def _get_secret(self, key):
-        return MD5.new(key.encode('utf-8')).hexdigest()[:self.BLOCK_SIZE]
-
-    def encrypt(self, msg):
-        return b64encode(self.cipher.encrypt(self._pad(msg)))
-
-    def decrypt(self, msg):
-        return self._depad((self.decipher.decrypt(b64decode(msg.encode('utf-8')))))
