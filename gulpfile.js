@@ -99,9 +99,9 @@ gulp.task('concat-js', function() {
     'node_modules/jquery/dist/jquery.js',
     'node_modules/popper.js/dist/umd/popper.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.min.js',
+    'node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js',
     //'node_modules/animejs/anime.js',
     'node_modules/pace-progress/pace.js',
-    'node_modules/typeahead.js/dist/typeahead.bundle.js',
     'app/static_source/js/site.js',
     'app/static_source/js/coffee/*.*',
   ])

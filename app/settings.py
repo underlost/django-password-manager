@@ -193,7 +193,6 @@ ROOT_URLCONF = 'app.urls'
 
 SUBDOMAIN_URLCONFS = {
 	None: 'app.urls',
-    'api': 'app.apps.api.urls',
 }
 
 #SESSION_COOKIE_DOMAIN = '.alifewellplayed.com'
@@ -218,7 +217,6 @@ INSTALLED_APPS = (
     #Internal
     'coreExtend',
     'manager',
-    'api',
 )
 
 LOGGING = {
