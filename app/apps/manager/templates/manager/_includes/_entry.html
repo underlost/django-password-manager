@@ -1,31 +1,33 @@
 <div class="card mb-2">{% load extra_tags %}
   <div class="card-header">
-  <h5 class="mb-0">{{ e.title }}<small class="ml-2"><a href="{% url 'passe.manager:update_entry' pk=e.id %}">(edit)</a></small></h5>
+  <h6 class="mb-0">{{ e.title }}<small class="ml-2"><a href="{% url 'passe.manager:update_entry' pk=e.id %}"><i class="fas fa-edit"></i></a></small></h6>
   </div>
   <div class="card-body">
     <small>
         {% if e.url %}
-        <span class="d-block">URL: <a href="{{e.url}}">{{e.url}}</a></span>
+        <span class="d-block"><strong>URL: </strong><a href="{{e.url}}">{{e.url}}</a></span>
         {% endif %}
         {% if e.username %}
         <span class="d-block">
-          Username: {{e.username}}
+          <strong>Username: </strong>{{e.username}}
         </span>
         {% endif %}
         {% if e.password %}
         <span class="d-block">
-          Password: <span onClick="toggleVisibility(this);"><a href="#" class="show-pass">Show Password</a>
+          <strong>Password: </strong><span onClick="toggleVisibility(this);"><a href="#" class="show-pass"><i class="fas fa-eye"></i> Show</a>
             <span class="password" style="display:none;">{{ e.password|decrypt }}</span></span>
         </span>
         {% endif %}
     </small>
-    <button class="btn btn-link" data-toggle="collapse" data-target="#details-{{e.id}}" aria-expanded="false" aria-controls="collapseOne">Show More Details</button>
+    <button class="btn btn-link btn-sm px-0" data-toggle="collapse" data-target="#details-{{e.id}}" aria-expanded="false" aria-controls="collapseOne"><i class="fas fa-plus-square"></i> Details</button>
     <div class="more-details collapse" id="details-{{e.id}}">
       <hr />
-      {% if e.expires %}<div>Expires: {{e.expires}}</div>{% endif %}
+
       {% if e.comment %}
-        {{e.comment|safe}}
+        {{e.comment_html|safe}}
       {% endif %}
+
+      {% if e.expires %}<small class="d-block text-right">Expires: {{e.expires}}</small>{% endif %}
     </div>
   </div>
 </div>

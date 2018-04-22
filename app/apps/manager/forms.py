@@ -14,6 +14,7 @@ class EntryForm(forms.ModelForm):
             'password': forms.TextInput({'class': 'form-control', 'placeholder': 'Password'}),
             'comment': forms.Textarea({'class': 'form-control', 'placeholder': 'Additional comments here. Markdown supported.'}),
             'expires': forms.TextInput(attrs={'class': 'form-control datepicker'}),
+            'category': forms.CheckboxSelectMultiple({'class': 'list-unstyled',}),
         }
 
 

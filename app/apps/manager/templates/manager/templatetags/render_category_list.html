@@ -1,10 +1,8 @@
-<div class="card mb-5">
-  <div class="card-header">
-    <h6 class="mb-0">Categories<small class="ml-2"><a href="{% url 'passe.manager:add_category' %}"><i class="fas fa-plus"></i> New</a></small></h6>
-  </div>
-  <ul class="list-group list-group-flush">
+<div class="mb-5">
+  <h6 class="mb-3">Categories<small class="ml-2"><a href="{% url 'passe.manager:add_category' %}"><i class="fas fa-plus"></i> New</a></small></h6>
+  <ul class="list-unstyled">
     {% for cat in object_list %}
-    <li class="list-group-item" onclick='searchEntries("{{ cat.title }}")'><a href="{% url 'passe.manager:entry_category_list' cat.pk %}"><i class="icon-chevron-right"></i> {{ cat.title }}</a> <small class="pl-2">({{cat.entry_count}})</small></li>
+    <li class="my-1" onclick='searchEntries("{{ cat.title }}")'><a href="{% url 'passe.manager:entry_category_list' cat.pk %}"><i class="icon-chevron-right"></i> {{ cat.title }}</a> <small class="pl-2">({{cat.entry_count}})</small></li>
     {% endfor %}
   </ul>
 </div>

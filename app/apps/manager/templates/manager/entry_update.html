@@ -25,12 +25,11 @@
       {{ field.label_tag }}
       {# {{ field }} #}
       <div class="input-append">
-        <input id="id_password" class="form-control" maxlength="200" name="password" type="text" value="{{ form.password.value|decrypt:user.password }}" />
+        <input id="id_password" class="form-control" maxlength="200" name="password" type="text" value="{{ form.password.value|decrypt }}" />
       </div>
     </p>
     {% endif %}
     {% endfor %}
-    {# {{ form.as_p }} #}
     <hr />
     {% if updating %}
     <div class="float-right">
