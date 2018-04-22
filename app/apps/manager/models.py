@@ -1,3 +1,5 @@
+import markdown
+
 from django.db import models
 from django.conf import settings
 
@@ -9,9 +11,10 @@ class Entry(models.Model):
     username = models.CharField(max_length=200, null=True, blank=True)
     password = models.CharField(max_length=200, null=False, blank=False)
     comment = models.TextField(null=True, blank=True)
+    comment_html = models.TextField(null=True, blank=True)
     expires = models.DateField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
-    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ManyToManyField('Category', null=True, blank=True)
 
     class Meta:
         ordering = ('title', 'date')
@@ -40,6 +43,7 @@ class Entry(models.Model):
         return new
 
     def save(self, *args, **kwargs):
+        self.comment_html = markdown.markdown(self.comment)
         cipher = AESCipher(settings.MASTER_KEY)
         if self._state.adding:
             # encrypt the password
