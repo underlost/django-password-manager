@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from manager.views import CategoryCreate, CategoryUpdate, CategoryDelete, EntryByCategoryListView, EntryDetailView, EntryCreate, EntryUpdate, EntryDelete, EntryListView, entry_search
+from manager.views import *
 
 ENTRY_URLS = [
     url(r'^$', login_required(EntryListView.as_view()), name='details_entry'),
@@ -23,6 +23,7 @@ CATEGORY_URLS = [
 app_name="passe.manager"
 urlpatterns = [
     url(r'^$', entry_search, name='home'),
+    url(r'^me/$', login_required(PersonalEntryListView.as_view()), name='personal_entry_list'),
     url(r'category/', include(CATEGORY_URLS)),
     url(r'entry/', include(ENTRY_URLS)),
 ]

@@ -56,6 +56,15 @@ class EntryByCategoryListView(ListView):
         context.update({'category' : self.category, })
         return context
 
+class PersonalEntryListView(ListView):
+    model = Entry
+    context_object_name = 'entries'
+    template_name = 'manager/entry_list.html'
+    paginate_by = 200
+
+    def get_queryset(self):
+        u = self.request.user
+        return Entry.objects.filter(user=u)
 
 class EntryCreate(CreateView):
     """ Enables creation of new entries """
@@ -71,14 +80,16 @@ class EntryCreate(CreateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        instance = Entry(user=request.user)
-        form = EntryForm(request.POST, instance=instance)
+        form = EntryForm(request.POST)
         if form.is_valid():
+            entry = form.save(commit=False)
+            entry.user = request.user
             entry = form.save()
             messages.add_message(request, messages.INFO, u'New entry added: {}'.format(entry.title))
             return redirect('passe.manager:home')
         else:
             form = EntryForm()
+            messages.add_message(request, messages.INFO, u'Unable to create new entry')
         return render(request, self.template_name, locals())
 
 
@@ -101,7 +112,6 @@ class EntryUpdate(UpdateView):
             if form.is_valid():
                 entry = form.save(commit=False)
                 entry.id = kwargs['pk']
-                entry.date = datetime.date.today()
                 entry.save()
                 messages.add_message(request, messages.INFO, u'Entry updated: {}'.format(entry.title))
                 return redirect('passe.manager:home')

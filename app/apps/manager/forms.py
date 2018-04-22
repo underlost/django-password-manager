@@ -6,7 +6,7 @@ class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
         fields = ('title', 'url', 'username', 'password', 'comment', 'expires', 'category', 'is_public', )
-        exclude = ['id', 'comment_html', 'date_created', 'date_updated', 'user']
+        #exclude = ['comment_html', 'date_created', 'date_updated',]
         widgets = {
             'title': forms.TextInput({'class': 'form-control', 'placeholder': 'Title'}),
             'url': forms.TextInput({'class': 'form-control', 'placeholder': 'Site URL'}),
