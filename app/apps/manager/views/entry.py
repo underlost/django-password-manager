@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from manager.forms import EntryForm
 from django.shortcuts import render, get_object_or_404
-from manager.models import CryptoEngine, Entry, Category
+from manager.models import Entry, Category
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from django.views.generic import CreateView
@@ -14,6 +14,7 @@ from django.views.generic import UpdateView
 from django.views.generic import DeleteView
 from django.http import HttpResponse
 
+from manager.utils import AESCipher
 
 class EntryDetailView(DetailView):
     """ Details about a given entry """
@@ -22,6 +23,7 @@ class EntryDetailView(DetailView):
     template_name = 'manager/entry_get.html'
 
     def get_context_data(self, **kwargs):
+        engine = AESCipher(settings.MASTER_KEY)
         context = super(EntryDetailView, self).get_context_data(**kwargs)
         decrypted = engine.decrypt(context['entry'].password)
         print(decrypted)
@@ -67,12 +69,8 @@ class EntryCreate(CreateView):
     def post(self, request, *args, **kwargs):
 
         if request.user.is_superuser:
-            engine = CryptoEngine(master_key=settings.MASTER_KEY)
-
             form = EntryForm(request.POST)
             if form.is_valid():
-                entry = form.save(commit=False)
-                entry.password = engine.encrypt(form.cleaned_data['password'])
                 entry.save()
                 messages.add_message(request, messages.INFO, u'New entry added: {}'.format(entry.title))
                 return redirect('passe.manager:home')
@@ -97,14 +95,11 @@ class EntryUpdate(UpdateView):
     def post(self, request, *args, **kwargs):
 
         if request.user.is_superuser:
-            engine = CryptoEngine(master_key=settings.MASTER_KEY)
-
             form = EntryForm(request.POST)
             if form.is_valid():
                 entry = form.save(commit=False)
                 entry.id = kwargs['pk']
                 entry.date = datetime.date.today()
-                entry.password = engine.encrypt(form.cleaned_data['password'])
                 entry.save()
                 messages.add_message(request, messages.INFO, u'Entry updated: {}'.format(entry.title))
                 return redirect('passe.manager:home')

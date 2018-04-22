@@ -2,8 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.http import HttpResponse
-from manager.models import Entry, CryptoEngine, Category
+from django.conf import settings
+from manager.models import Entry, Category
 from manager.generator import Generator
+from manager.utils import AESCipher
 import json
 import datetime
 
@@ -35,7 +37,7 @@ def get_random_key(request):
 @user_passes_test(lambda u: u.is_superuser)
 def get_search(request):
 
-    engine = CryptoEngine(master_key=request.user.password)
+    engine = AESCipher(settings.MASTER_KEY)
     entries = None
 
     if 'title' in request.GET:
@@ -62,7 +64,7 @@ def get_search(request):
 @user_passes_test(lambda u: u.is_superuser)
 def post_entry_add(request):
 
-    engine = CryptoEngine(master_key=request.user.password)
+    engine = AESCipher(settings.MASTER_KEY)
 
     e = None
     attributes = set(['title', 'password', 'category'])
