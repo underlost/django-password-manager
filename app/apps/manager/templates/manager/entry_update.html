@@ -1,44 +1,45 @@
 {% extends "manager/base.html" %}
-{% load extra_tags %}
+{% load extra_tags %}{% load category_tags %}
+
+{% block sidebar %}
+{% render_categories %}
+{% endblock %}
+
 {% block content %}
-<div class="hero-unit">
-    <h2>{{page_title}}</h2>
-    <form action="" method="post">
-        {% csrf_token %}
-        {# {{ form.password.value|decrypt:user.password }} #}
-        {% for field in form %}
-            {% if field.html_name != 'password' %}
-                <p>
-                    {{ field.errors }}
-                    {{ field.label_tag }}
-                    {{ field }}
-                </p>
-            {% else %}
-                <p>
-                    {{ field.errors }}
-                    {{ field.label_tag }}
-                    {# {{ field }} #}
-                    <div class="input-append">
-                        <input id="id_password"
-                        maxlength="200" name="password" type="text"
-                        value="{{ form.password.value|decrypt:user.password }}" />
-                        <input id="length" type="text" class="input-mini" value="25">
-                        <button class="btn" type="button"
-                            id="generate"><i class="icon-cog"></i></button>
-                    </div>
-                </p>
-            {% endif %}
-        {% endfor %}
-        {# {{ form.as_p }} #}
-        {% if updating %}
-        <div class="float-right">
-          <a class="btn btn-danger" href="{% url 'passe.manager:delete_entry' pk=object.id %}">Delete</a>
-        </div>
+<div>
+  <h2>{{page_title}}</h2>
+  <hr />
+  <form action="" method="post">
+    {% csrf_token %}
+    {# {{ form.password.value|decrypt:user.password }} #}
+    {% for field in form %}
+    {% if field.html_name != 'password' %}
+    <p>
+      {{ field.errors }}
+      {{ field.label_tag }}
+      {{ field }}
+    </p>
+    {% else %}
+    <p class="mb-0">
+      {{ field.errors }}
+      {{ field.label_tag }}
+      {# {{ field }} #}
+      <div class="input-append">
+        <input id="id_password" class="form-control" maxlength="200" name="password" type="text" value="{{ form.password.value|decrypt:user.password }}" />
+      </div>
+    </p>
+    {% endif %}
+    {% endfor %}
+    {# {{ form.as_p }} #}
+    <hr />
+    {% if updating %}
+    <div class="float-right">
+      <a class="btn btn-danger" href="{% url 'passe.manager:delete_entry' pk=object.id %}">Delete</a>
+    </div>
 
-        {% endif %}
+    {% endif %}
+    <input class="btn btn-primary" type="submit" value="Submit" />
 
-        <input class="btn btn-primary" type="submit" value="Submit" />
-
-    </form>
+  </form>
 </div>
 {% endblock %}

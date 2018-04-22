@@ -58,8 +58,8 @@ class CategoryUpdate(UpdateView):
 class CategoryDelete(DeleteView):
     """ Enables deletion of a given entry """
     model = Category
-    context_object_name = 'category'
-    template_name = 'category_delete.html'
+    context_object_name = 'obj'
+    template_name = 'manager/delete.html'
     success_url = '/'
 
     def post(self, request, *args, **kwargs):

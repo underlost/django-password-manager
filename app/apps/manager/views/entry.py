@@ -18,8 +18,8 @@ from django.http import HttpResponse
 class EntryDetailView(DetailView):
     """ Details about a given entry """
     model = Entry
-    context_object_name = 'entry'
-    template_name = 'entry_get.html'
+    context_object_name = 'e'
+    template_name = 'manager/entry_get.html'
 
     def get_context_data(self, **kwargs):
         context = super(EntryDetailView, self).get_context_data(**kwargs)
@@ -117,8 +117,8 @@ class EntryDelete(DeleteView):
     """ Enables deletion of a given entry """
 
     model = Entry
-    context_object_name = 'entry'
-    template_name = 'entry_delete.html'
+    context_object_name = 'obj'
+    template_name = 'manager/delete.html'
     success_url = '/'
 
     def post(self, request, *args, **kwargs):

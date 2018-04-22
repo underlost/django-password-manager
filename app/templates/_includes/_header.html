@@ -7,7 +7,7 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       {% if user.is_authenticated %}
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav ml-auto mr-3">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-plus"></i>
@@ -29,7 +29,6 @@
                 </div>
             </li>
       </ul>
-
 
       <form method="post" class="form-inline my-2 my-lg-0" action="{% url 'passe.manager:home' %}" id="form-search">
           {% csrf_token %}

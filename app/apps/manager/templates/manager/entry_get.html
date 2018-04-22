@@ -1,0 +1,10 @@
+{% extends "manager/base.html" %}
+{% block title %}Get Entry{% endblock %}
+
+{% block sidebar %}
+{% render_categories %}
+{% endblock %}
+
+{% block content %}
+{% include "manager/_includes/_entry.html" %}
+{% endblock %}

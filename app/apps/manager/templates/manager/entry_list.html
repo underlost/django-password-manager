@@ -12,27 +12,7 @@
 {% endblock %}
 {% block content %}
 {% for e in entries %}
-<div class="card mb-2">
-  <div class="card-header">
-  <h5 class="mb-0">{{ e.title }}<small class="ml-2"><a href="{% url 'passe.manager:update_entry' pk=e.id %}">(edit)</a></small></h5>
-  {% if e.expires %}<div class="float-right">{{e.expires}}</div>{% endif %}
-  </div>
-  <div class="card-body">
-    <small>
-    {% if e.url %}<span class="d-block">URL: {{e.url}}</span>{% endif %}
-    {% if e.username %}<span class="d-block">username: {{e.username}}</span>{% endif %}
-    {% if e.password %}
-      <span class="d-block" onclick="toggleVisibility(this);">Password:
-        <span style="visibility:hidden">{{ e.password|decrypt:user.password }}</span>
-      </span>
-    {% endif %}
-    </small>
-    {% if e.comment %}
-      <hr />
-      {{e.comment|safe}}
-    {% endif %}
-  </div>
-</div>
+  {% include "manager/_includes/_entry.html" %}
 {% endfor %}
 
 {% endblock %}
