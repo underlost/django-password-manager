@@ -22,12 +22,10 @@ class Entry(models.Model):
 
     class Meta:
         ordering = ('title', 'date')
+        verbose_name_plural = "Entries"
 
     def __str__(self):
         return self.title
-
-    class Meta:
-        verbose_name_plural = 'entries'
 
     def dict(self):
         dic = {}
@@ -77,7 +75,7 @@ class Category(models.Model):
         return self.title
 
     class Meta:
-        verbose_name_plural = 'categories'
+        verbose_name_plural = 'Categories'
 
     def entry_count(self):
         total = Entry.objects.filter(category=self).count()

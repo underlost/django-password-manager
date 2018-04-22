@@ -12,10 +12,13 @@
         <span style="visibility:hidden">{{ e.password|decrypt:user.password }}</span>
       </span>
     {% endif %}
+    <button class="btn btn-link" data-toggle="collapse" data-target="#details-{{e.id}}" aria-expanded="false" aria-controls="collapseOne">More Details</button>
     </small>
-    {% if e.comment %}
-      <hr />
-      {{e.comment|safe}}
-    {% endif %}
+    <div class="more-details collapse" id="details-{{e.id}}">
+      {% if e.comment %}
+        <hr />
+        {{e.comment|safe}}
+      {% endif %}
+    </div>
   </div>
 </div>
