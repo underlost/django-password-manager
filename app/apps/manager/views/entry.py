@@ -106,15 +106,14 @@ class EntryUpdate(UpdateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        form = EntryForm(request.POST)
+        self.object = self.get_object()
+        form = EntryForm(request.POST, instance=self.object)
         if form.is_valid():
-            entry = form.save(commit=False)
-            entry.id = kwargs['pk']
-            entry.save()
+            entry = form.save()
             messages.add_message(request, messages.INFO, u'Entry updated: {}'.format(entry.title))
             return redirect('passe.manager:home')
         else:
-            form = EntryForm()
+            form = EntryForm(instance=self.object)
         return render(request, self.template_name, locals())
 
 
