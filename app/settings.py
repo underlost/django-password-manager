@@ -24,6 +24,7 @@ ENABLE_S3 = False
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'dry-headland-78394.herokuapp.com',
 ]
 
 ADMINS = (('Tyler Rilling', 'tyler@underlost.net'))
